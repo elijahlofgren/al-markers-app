@@ -15,9 +15,9 @@
                   <div>
                     <h3>
                     <v-icon v-if="marker.visited">fa fa-check-circle</v-icon>
-                    <a :href='marker.latUrl' target="_blank">{{ marker.Title }}</a>
+                    <a :href='marker.latUrl' target="_blank">{{ marker.name }}</a>
                     </h3>
-                    <div>County: {{ marker.County }}</div>
+                    <div>County: {{ marker.county }}</div>
                     <b>Distance: {{marker.distance}}</b>
                   </div>
                 </v-card-title>
