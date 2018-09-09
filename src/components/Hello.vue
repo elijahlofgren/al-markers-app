@@ -1,16 +1,21 @@
 <script src="./HelloComponent.js"></script>
 <template>
   <v-container fluid>
+       
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <div class='hello'>
             <v-flex xs12 sm6 offset-sm3>
+              <h1>Historical Markers List</h1>
+              <v-btn @click="goToMapView" small color="primary" dark>Go to Map View</v-btn>
+              <div class="tag-filter-wrapper">
               <v-select
                 :items="tags"
-                label="Filter by tag"
+                label="Filter by category"
                 v-model="selectedTag"
               ></v-select>
-              Swipe right on a marker to mark it as visited.
+              </div>
+              <div class="tip">Tip: Swipe right on a marker to mark it as visited.</div>
             </v-flex>
             <v-flex xs12 sm6 offset-sm3 v-for='(marker,index) of filteredMarkers' :key='index'>
               <v-card 
@@ -43,8 +48,7 @@
               </v-card>
             </v-flex>
 
-        <!-- Your location: -->
-         <div id="mapid"></div>
+           
   </div> 
       </v-layout>
     </v-slide-y-transition>
@@ -53,21 +57,25 @@
 
 
 <style>
-.mapLabel {
+/*.mapLabel {
   font-size: 10px;
   white-space: nowrap;
   color: red;
-}
+}*/
 </style>
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
-#mapid {
+/*#mapid {
   height: 580px;
 }
-
+*/
 h1,
 h2 {
   font-weight: normal;
+}
+h1, .tag-filter-wrapper,
+.tip {
+  margin-left: 8px;
 }
 ul {
   list-style-type: none;
@@ -80,5 +88,6 @@ li {
 a {
   color: #42b983;
 }
+
 </style>
 

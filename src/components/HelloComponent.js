@@ -1,30 +1,35 @@
 import axios from 'axios';
-import L from 'leaflet';
+//import L from 'leaflet';
 //import MarkersData from '../data/MarkersData';
 import GpsUtils from '../util/GpsUtils';
+//import MarkerMap from '@/components/MarkerMap/MarkerMap';
 
 // createLabelIcon is from https://gis.stackexchange.com/questions/157696/leaflet-js-text-is-not-showing-on-map
-function createLabelIcon(labelClass, labelText) {
+/*function createLabelIcon(labelClass, labelText) {
   return L.divIcon({
     className: labelClass,
     html: labelText,
   });
-}
+}*/
 
 // Set this to true when testing on desktop (not when building for mobile app)
 const useHardCodedGps = true;
-let userLat = 32.37685;
-let userLon = -86.30078333;
 
 /* eslint-enable */
 
 export default {
   name: 'HelloWorld',
+  components: {
+    // MarkerMap
+  },
   data() {
     return {
       markers: null,
       tags: ['Select One'],
-      selectedTag: 'Select One'
+      selectedTag: 'Select One',
+      // Hardcoded for demo/testing
+      userLat: 32.37685,
+      userLon: -86.30078333
     };
   },
   computed: {
@@ -39,6 +44,9 @@ export default {
   },
   created() {
     const vm = this;
+    // Hardcoded for demo/testing
+    //vm.userLat = 32.37685;
+    //vm.userLon = -86.30078333;
     vm.rawMarkersData = [];
     axios.get("https://sheets.googleapis.com/v4/spreadsheets/1S5y_j8oFyPFq0GuRNybX7YFuQAU46Umho-q3e1UKPok/values/Sheet1?key=AIzaSyAEgmM-Fnzc3ihs54orFIiwkyaZo9ywKQs")
       .then((response) => {
@@ -76,8 +84,8 @@ export default {
           /* eslint-disable */
           navigator.geolocation.getCurrentPosition(
             function success(position) {
-              userLat = position.coords.latitude;
-              userLon = position.coords.longitude;
+              vm.userLat = position.coords.latitude;
+              vm.userLon = position.coords.longitude;
               //alert('Latitude: ' + position.coords.latitude + ' Longitude: ' + position.coords.longitude);
               vm.gpsReady();
             },
@@ -91,9 +99,21 @@ export default {
       })
   },
   methods: {
+    goToMapView() {
+      let vm = this;
+      vm.$router.push({
+        name: 'MarkerMap',
+        params: {
+          userLat: vm.userLat,
+          userLon: vm.userLon,
+          markers: vm.filteredMarkers
+        }
+      });
+    },
+    /*
     showMap() {
       let vm = this;
-      const mymap = L.map('mapid').setView([userLat, userLon], 15);
+      const mymap = L.map('mapid').setView([vm.userLat, vm.userLon], 15);
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -108,17 +128,13 @@ export default {
 
       for (let i = 0; i < vm.markers.length; i++) {
         let markerData = vm.markers[i];
-        /*const marker = L.marker([markerData.lat, markerData.lng], { 
-          icon: createLabelIcon('mapLabel', 'Marker') }).addTo(mymap);
-        marker.bindPopup('<b>' + markerData.name + '</b><br><a href="' + markerData.gmapsUrl + '" target="_blank">Get Directions</a>').openPopup();
-        */
         L.marker([markerData.lat, markerData.lng]).addTo(mymap)
           .bindPopup(vm.getPopupHtml(markerData))
           .openPopup();
 
       }
-    },
-    getPopupHtml(markerData) {
+    },*/
+    /*getPopupHtml(markerData) {
       let html =
         '<b>' + markerData.name + '</b>' +
         '<br><a href="' + markerData.gmapsUrl + '" target="_blank">Get Directions</a>';
@@ -130,7 +146,7 @@ export default {
         html += '<br><a href="' + markerData.article + '" target="_blank">Read Article</a>';
       }
       return html;
-    },
+    },*/
     addTags(item) {
       let vm = this;
       if (item.tags.length > 0) {
@@ -196,8 +212,8 @@ export default {
             lat,
             lon
           }, {
-            lat: userLat,
-            lon: userLon
+            lat: vm.userLat,
+            lon: vm.userLon
           }, );
           preppedData[i].distance = result;
         }
@@ -207,7 +223,7 @@ export default {
 
       // JSON responses are automatically parsed.
       vm.markers = preppedData.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-      vm.showMap();
+      //vm.showMap();
     }
   },
   mounted() {
