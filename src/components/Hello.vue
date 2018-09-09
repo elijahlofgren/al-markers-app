@@ -43,8 +43,8 @@
               </v-card>
             </v-flex>
 
-        <!-- Your location:
-         <div id="mapid"></div> -->
+        <!-- Your location: -->
+         <div id="mapid"></div>
   </div> 
       </v-layout>
     </v-slide-y-transition>
@@ -54,7 +54,7 @@
 
 <style>
 .mapLabel {
-  font-size: 20px;
+  font-size: 10px;
   white-space: nowrap;
   color: red;
 }

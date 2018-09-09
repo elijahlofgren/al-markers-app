@@ -1,5 +1,5 @@
 import axios from 'axios';
-//import L from 'leaflet';
+import L from 'leaflet';
 //import MarkersData from '../data/MarkersData';
 import GpsUtils from '../util/GpsUtils';
 
@@ -65,7 +65,7 @@ export default {
             };
 
             vm.addTags(item);
-            
+
             vm.rawMarkersData.push(item);
           }
         }
@@ -91,13 +91,52 @@ export default {
       })
   },
   methods: {
+    showMap() {
+      let vm = this;
+      const mymap = L.map('mapid').setView([userLat, userLon], 15);
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoiZWxvZmdyZW4iLCJhIjoiY2poZmUxanNpMTd5dzMwbWQybTN2MjhjaiJ9.cKtaDiFIjeHJAoIt7h7ZDw',
+      }).addTo(mymap);
+
+      const currentLocationMarker = L.marker([userLat, userLon], {
+        icon: createLabelIcon('mapLabel', 'Your Location')
+      }).addTo(mymap);
+      currentLocationMarker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup();
+
+      for (let i = 0; i < vm.markers.length; i++) {
+        let markerData = vm.markers[i];
+        /*const marker = L.marker([markerData.lat, markerData.lng], { 
+          icon: createLabelIcon('mapLabel', 'Marker') }).addTo(mymap);
+        marker.bindPopup('<b>' + markerData.name + '</b><br><a href="' + markerData.gmapsUrl + '" target="_blank">Get Directions</a>').openPopup();
+        */
+        L.marker([markerData.lat, markerData.lng]).addTo(mymap)
+          .bindPopup(vm.getPopupHtml(markerData))
+          .openPopup();
+
+      }
+    },
+    getPopupHtml(markerData) {
+      let html =
+        '<b>' + markerData.name + '</b>' +
+        '<br><a href="' + markerData.gmapsUrl + '" target="_blank">Get Directions</a>';
+
+      if (markerData.waymarkUrl) {
+        html += '<br><a href="' + markerData.waymarkUrl + '" target="_blank">Waymark info</a>';
+      }
+      if (markerData.article) {
+        html += '<br><a href="' + markerData.article + '" target="_blank">Read Article</a>';
+      }
+      return html;
+    },
     addTags(item) {
       let vm = this;
       if (item.tags.length > 0) {
         let tags = item.tags.split(',');
         if (tags && tags.length > 0) {
-          for (let i = 0; i < tags.length; i++)
-          {
+          for (let i = 0; i < tags.length; i++) {
             let trimmed = tags[i].trim();
             if (vm.tags.indexOf(trimmed) == -1) {
               vm.tags.push(trimmed);
@@ -146,7 +185,7 @@ export default {
           preppedData[i].visited = false;
 
           var isVisited = storage.getItem(marker.id); // Pass a key name to get its value.
-          console.log("isVisited for " + marker.id + " is set to: " + isVisited);
+          //console.log("isVisited for " + marker.id + " is set to: " + isVisited);
           if (isVisited != null) {
             preppedData[i].visited = true;
           }
@@ -168,21 +207,21 @@ export default {
 
       // JSON responses are automatically parsed.
       vm.markers = preppedData.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-
+      vm.showMap();
     }
   },
   mounted() {
     /*
-    demo of showing label on map.
-    const mymap = L.map('mapid').setView([userLat, userLon], 15);
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox.streets',
-      accessToken: 'pk.eyJ1IjoiZWxvZmdyZW4iLCJhIjoiY2poZmUxanNpMTd5dzMwbWQybTN2MjhjaiJ9.cKtaDiFIjeHJAoIt7h7ZDw',
-    }).addTo(mymap);
+    demo of showing label on map.*/
+    /* const mymap = L.map('mapid').setView([userLat, userLon], 15);
+     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+       maxZoom: 18,
+       id: 'mapbox.streets',
+       accessToken: 'pk.eyJ1IjoiZWxvZmdyZW4iLCJhIjoiY2poZmUxanNpMTd5dzMwbWQybTN2MjhjaiJ9.cKtaDiFIjeHJAoIt7h7ZDw',
+     }).addTo(mymap);
 
-    const marker = L.marker([userLat, userLon], { icon: createLabelIcon('mapLabel', 'a place') }).addTo(mymap);
-    marker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup(); */
+     const marker = L.marker([userLat, userLon], { icon: createLabelIcon('mapLabel', 'a place') }).addTo(mymap);
+     marker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup(); */
   },
 };

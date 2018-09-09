@@ -24,6 +24,18 @@ if (window.location.protocol === 'file:' || window.location.port === '3000') {
   document.body.appendChild(cordovaScript);
 }
 
+// Fix leaflet map markers
+// From https://github.com/KoRiGaN/Vue2Leaflet/issues/103#issuecomment-346970153
+// eslint-disable-next-line  
+delete L.Icon.Default.prototype._getIconUrl  
+// eslint-disable-next-line  
+L.Icon.Default.mergeOptions({  
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),  
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),  
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')  
+})
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
