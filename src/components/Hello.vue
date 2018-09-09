@@ -10,6 +10,7 @@
                 label="Filter by tag"
                 v-model="selectedTag"
               ></v-select>
+              Swipe right on a marker to mark it as visited.
             </v-flex>
             <v-flex xs12 sm6 offset-sm3 v-for='(marker,index) of filteredMarkers' :key='index'>
               <v-card 
