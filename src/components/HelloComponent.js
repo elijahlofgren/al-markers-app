@@ -22,8 +22,20 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      markers: null
+      markers: null,
+      tags: ['Select One'],
+      selectedTag: 'Select One'
     };
+  },
+  computed: {
+    filteredMarkers() {
+      let vm = this;
+      if (vm.selectedTag && vm.seletedTag != '' && vm.selectedTag != 'Select One') {
+        return vm.markers.filter(m => m.tags.indexOf(vm.selectedTag) !== -1);
+      } else {
+        return vm.markers;
+      }
+    }
   },
   created() {
     const vm = this;
@@ -48,8 +60,11 @@ export default {
               lat: lat,
               lng: lng,
               waymark: row[7],
-              latKey: row[8]
+              latKey: row[8],
+              article: row[9]
             };
+
+            vm.addTags(item);
             
             vm.rawMarkersData.push(item);
           }
@@ -76,6 +91,22 @@ export default {
       })
   },
   methods: {
+    addTags(item) {
+      let vm = this;
+      if (item.tags.length > 0) {
+        let tags = item.tags.split(',');
+        if (tags && tags.length > 0) {
+          for (let i = 0; i < tags.length; i++)
+          {
+            let trimmed = tags[i].trim();
+            if (vm.tags.indexOf(trimmed) == -1) {
+              vm.tags.push(trimmed);
+            }
+          }
+        }
+
+      }
+    },
     swipe(direction, marker) {
       console.log("Swipe to " + direction + " for maker id: " + marker.id);
       var storage = window.localStorage;

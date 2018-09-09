@@ -4,7 +4,14 @@
     <v-slide-y-transition mode="out-in">
       <v-layout column align-center>
         <div class='hello'>
-            <v-flex xs12 sm6 offset-sm3 v-for='(marker,index) of markers' :key='index'>
+            <v-flex xs12 sm6 offset-sm3>
+              <v-select
+                :items="tags"
+                label="Filter by tag"
+                v-model="selectedTag"
+              ></v-select>
+            </v-flex>
+            <v-flex xs12 sm6 offset-sm3 v-for='(marker,index) of filteredMarkers' :key='index'>
               <v-card 
               v-touch="{
                 left: () => swipe('left', marker),
@@ -27,6 +34,9 @@
                   </v-btn>
                   <v-btn v-if="marker.waymarkUrl" dark small color="primary" :href='marker.waymarkUrl' target="_blank">
                     <v-icon dark>fa fa-map-signs</v-icon>
+                  </v-btn>
+                  <v-btn v-if="marker.article" dark small color="primary" :href='marker.article' target="_blank">
+                    <!--<v-icon dark>fa fa-info</v-icon>--> Read Article
                   </v-btn>
                 </v-card-actions>
               </v-card>
