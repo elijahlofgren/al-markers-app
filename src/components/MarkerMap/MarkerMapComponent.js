@@ -52,7 +52,8 @@ export default {
       const currentLocationMarker = L.marker([vm.userLat, vm.userLon], {
         icon: createLabelIcon('mapLabel', 'Your Location')
       }).addTo(mymap);
-      currentLocationMarker.bindPopup('Your last detected location').openPopup();
+      currentLocationMarker.bindPopup('Your last detected location')
+      //.openPopup();
 
       for (let i = 0; i < vm.markers.length; i++) {
         let markerData = vm.markers[i];
@@ -62,7 +63,7 @@ export default {
         */
         L.marker([markerData.lat, markerData.lng]).addTo(mymap)
           .bindPopup(vm.getPopupHtml(markerData))
-          .openPopup();
+          //.openPopup();
 
       }
     },
