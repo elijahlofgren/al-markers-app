@@ -1,6 +1,6 @@
 <script src="./MarkerMapComponent.js"></script>
 <template>
-  <div>
+  <div id="mapid-wrapper">
     <v-btn @click="goToListView" small color="primary" dark>Back to List View</v-btn>
   <!--  Map:
      userLat:{{userLat}}<br />
@@ -19,7 +19,10 @@ userLon:{{userLon}}<br />-->
   </style>
   <!-- Add 'scoped' attribute to limit CSS to this component only -->
   <style scoped>
+  #mapid-wrapper {
+    height: 90%;
+  }
   #mapid {
-    height: 580px;
+    height: 100%;
   }
   </style>
