@@ -36,10 +36,10 @@
                 </v-card-title>
                 <v-card-actions>
                   <v-btn dark small color="primary" :href='marker.gmapsUrl' target="_blank">
-                    <v-icon dark>fa fa-map-marker</v-icon>
+                    <v-icon dark>place</v-icon>
                   </v-btn>
                   <v-btn v-if="marker.waymarkUrl" dark small color="primary" :href='marker.waymarkUrl' target="_blank">
-                    <v-icon dark>fa fa-map-signs</v-icon>
+                    <v-icon dark>info</v-icon>
                   </v-btn>
                   <v-btn v-if="marker.article" dark small color="primary" :href='marker.article' target="_blank">
                     <!--<v-icon dark>fa fa-info</v-icon>--> Read Article

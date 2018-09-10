@@ -41,7 +41,7 @@ export default {
     },
     showMap() {
       let vm = this;
-      const mymap = L.map('mapid').setView([vm.userLat, vm.userLon], 15);
+      const mymap = L.map('mapid').setView([vm.userLat, vm.userLon], 10);
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
@@ -73,7 +73,7 @@ export default {
         '<br><a href="' + markerData.gmapsUrl + '" target="_blank">Get Directions</a>';
 
       if (markerData.waymarkUrl) {
-        html += '<br><a href="' + markerData.waymarkUrl + '" target="_blank">Waymark info</a>';
+        html += '<br><a href="' + markerData.waymarkUrl + '" target="_blank">Marker info</a>';
       }
       if (markerData.article) {
         html += '<br><a href="' + markerData.article + '" target="_blank">Read Article</a>';

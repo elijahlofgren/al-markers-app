@@ -1,19 +1,9 @@
 import axios from 'axios';
-//import L from 'leaflet';
 //import MarkersData from '../data/MarkersData';
 import GpsUtils from '../util/GpsUtils';
-//import MarkerMap from '@/components/MarkerMap/MarkerMap';
-
-// createLabelIcon is from https://gis.stackexchange.com/questions/157696/leaflet-js-text-is-not-showing-on-map
-/*function createLabelIcon(labelClass, labelText) {
-  return L.divIcon({
-    className: labelClass,
-    html: labelText,
-  });
-}*/
 
 // Set this to true when testing on desktop (not when building for mobile app)
-const useHardCodedGps = true;
+const useHardCodedGps = false;
 
 /* eslint-enable */
 
@@ -110,43 +100,6 @@ export default {
         }
       });
     },
-    /*
-    showMap() {
-      let vm = this;
-      const mymap = L.map('mapid').setView([vm.userLat, vm.userLon], 15);
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox.streets',
-        accessToken: 'pk.eyJ1IjoiZWxvZmdyZW4iLCJhIjoiY2poZmUxanNpMTd5dzMwbWQybTN2MjhjaiJ9.cKtaDiFIjeHJAoIt7h7ZDw',
-      }).addTo(mymap);
-
-      const currentLocationMarker = L.marker([userLat, userLon], {
-        icon: createLabelIcon('mapLabel', 'Your Location')
-      }).addTo(mymap);
-      currentLocationMarker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup();
-
-      for (let i = 0; i < vm.markers.length; i++) {
-        let markerData = vm.markers[i];
-        L.marker([markerData.lat, markerData.lng]).addTo(mymap)
-          .bindPopup(vm.getPopupHtml(markerData))
-          .openPopup();
-
-      }
-    },*/
-    /*getPopupHtml(markerData) {
-      let html =
-        '<b>' + markerData.name + '</b>' +
-        '<br><a href="' + markerData.gmapsUrl + '" target="_blank">Get Directions</a>';
-
-      if (markerData.waymarkUrl) {
-        html += '<br><a href="' + markerData.waymarkUrl + '" target="_blank">Waymark info</a>';
-      }
-      if (markerData.article) {
-        html += '<br><a href="' + markerData.article + '" target="_blank">Read Article</a>';
-      }
-      return html;
-    },*/
     addTags(item) {
       let vm = this;
       if (item.tags.length > 0) {
