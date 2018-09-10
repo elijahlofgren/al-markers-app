@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget android-versionCode="1" id="com.elijahlofgren.almarkers" ios-CFBundleVersion="1" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>al-markers-app</name>
-    <description>Shows locations of AL historical markers</description>
+    <name>AL Historic Markers</name>
+    <description>Shows locations of ALabama historic markers</description>
     <author email="elijahlofgren@gmail.com" href="https://www/elijahlofgren.com/">
-        Apache Cordova Team
+        Elijah Lofgren
     </author>
     <content src="index.html" />
     <preference name="DisallowOverscroll" value="true" />
@@ -18,12 +18,18 @@
     <platform name="android">
         <allow-intent href="market:*" />
         <preference name="loadUrlTimeoutValue" value="700000" />
+        <icon density="ldpi" src="res/icon/android/icon-36-ldpi.png" />
+        <icon density="mdpi" src="res/icon/android/icon-48-mdpi.png" />
+        <icon density="hdpi" src="res/icon/android/icon-72-hdpi.png" />
+        <icon density="xhdpi" src="res/icon/android/icon-96-xhdpi.png" />
+        <icon density="xxhdpi" src="res/icon/android/xxhdpi.png" />
+        <icon density="xxxhdpi" src="res/icon/android/xxxhdpi.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-            <string>need location access to find things nearby</string>
+            <string>Needs location access to show closest historical markers</string>
         </edit-config>
     </platform>
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />

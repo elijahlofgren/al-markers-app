@@ -80,12 +80,12 @@ export default {
               vm.gpsReady();
             },
             function error(error) {
-              alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+              alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n Please try force closing and reopening the app.');
             },
           );
         }
       }).catch((err) => {
-        alert('Error' + err);
+        alert('Error' + err + '\n Please try force closing and reopening the app.');
       })
   },
   methods: {
