@@ -1,6 +1,23 @@
-# al-markers-app
+# AL Historic Markers App
 
-> Shows locations of AL historical markers
+Shows locations of AL historical markers
+
+## Screenshots
+
+### Home
+
+![Home](https://raw.githubusercontent.com/elijahlofgren/al-markers-app/master/source-images/screenshots/android/Screenshot_20180909-215051.png)
+
+### Map View
+
+![Filter by category](https://raw.githubusercontent.com/elijahlofgren/al-markers-app/master/source-images/screenshots/android/Screenshot_20180909-215141.png)
+
+
+### Filter By Category
+
+![Filter by category](https://raw.githubusercontent.com/elijahlofgren/al-markers-app/master/source-images/screenshots/android/Screenshot_20180909-215059.png)
+
+
 
 ## Build Setup
 
