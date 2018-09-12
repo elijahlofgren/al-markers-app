@@ -2,6 +2,9 @@
 
 Shows locations of AL historical markers
 
+## Not publishable to iOS App store (rejected)
+This Cordova app was rejected by Apple for publishing in the App Store for it being not app-like enough. It probably needs to have the UI rebuilt with a framework that makes the interface look like native iOS widgets (e.g. Ionic, Xamarin)
+
 ## Screenshots
 
 ### Home
